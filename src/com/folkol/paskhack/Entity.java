@@ -1,6 +1,7 @@
 package com.folkol.paskhack;
 
 import org.newdawn.slick.Animation;
+import org.newdawn.slick.tiled.TiledMap;
 
 public class Entity {
     public float x, y;
@@ -8,7 +9,6 @@ public class Entity {
     public int width = 32, height = 32;
     protected float maxspeed;
     protected Animation currentAnimation;
-
     Direction direction;
     private Scene currentScene;
 
@@ -39,15 +39,50 @@ public class Entity {
 
     private void moveX(int delta) {
         float attemptedX = x + dx * delta;
-        x = attemptedX;
+        if (!collision(attemptedX, y)) {
+            x = attemptedX;
+        }
     }
 
     private void moveY(int delta) {
         float attemptedY = y + dy * delta;
-        y = attemptedY;
+        if (!collision(x, attemptedY)) {
+            y = attemptedY;
+        }
+    }
+
+    private boolean isWalkable(float attemptedX, float attemptedY) {
+        boolean walkable = true;
+        TiledMap map = currentScene.map;
+        int worldWidth = map.getWidth() * map.getTileWidth();
+        int worldHeight = map.getHeight() * map.getTileHeight();
+        if (attemptedX < 0)
+            walkable = false;
+        if (attemptedX > worldWidth)
+            walkable = false;
+        if (attemptedY < 0)
+            walkable = false;
+        if (attemptedY > worldHeight)
+            walkable = false;
+        int destinationTileX = (int) (attemptedX / map.getTileWidth());
+        int destinationTileY = (int) (attemptedY / map.getTileHeight());
+        String tileWalkable = map.getTileProperty(map.getTileId(destinationTileX, destinationTileY, 0), "movable", "true");
+        if (Boolean.parseBoolean(tileWalkable) == false) {
+            walkable = false;
+        }
+        return walkable;
+    }
+
+    private boolean collision(float attemptedX, float attemptedY) {
+        return !isWalkable(attemptedX, attemptedY) || !isWalkable(attemptedX + width, attemptedY) || !isWalkable(attemptedX, attemptedY + height)
+                || !isWalkable(attemptedX + width, attemptedY + height);
     }
 
     public void render(int screenPosX, int screenPosY) {
-        currentAnimation.draw(x - screenPosX - width, y - screenPosY - height);
+        currentAnimation.draw(x - screenPosX, y - screenPosY - height);
+    }
+
+    public float distance(Entity e) {
+        return (float) Math.sqrt(Math.pow(x - e.x, 2) + Math.pow(y - e.y, 2));
     }
 }

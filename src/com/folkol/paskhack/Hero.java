@@ -25,7 +25,7 @@ public class Hero extends Entity {
         Image i2 = hero.getSprite(3, 0);
         attack = new Animation(new Image[] { i1, i2 }, 100);
         setX(200);
-        setY(200);
+        setY(300);
         currentAnimation = stand;
         maxspeed = 0.2f;
         miss = new Sound("/snd/attack_miss_0.wav");
