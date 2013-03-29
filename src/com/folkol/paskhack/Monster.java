@@ -8,17 +8,19 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 import org.newdawn.slick.SpriteSheet;
 
-public class Hero extends Entity {
+public class Monster extends Entity {
     private Animation walk;
     private Animation stand;
     private Animation attack;
+    private Animation currentAnimation;
+
     private Sound miss;
     private Sound hit;
     private long nextAction;
 
-    public Hero(Scene scene) throws SlickException {
+    public Monster(Scene scene) throws SlickException {
         super(scene);
-        SpriteSheet hero = new SpriteSheet("/gfx/hero.png", 32, 64);
+        SpriteSheet hero = new SpriteSheet("/gfx/monster.png", 32, 64);
         stand = new Animation(hero, 0, 0, 0, 0, true, 250, true);
         walk = new Animation(hero, 1, 0, 2, 0, true, 100, true);
         Image i1 = hero.getSprite(0, 0);
@@ -33,43 +35,56 @@ public class Hero extends Entity {
     }
 
     public void update(GameContainer gc, int delta) {
-        if (nextAction > System.currentTimeMillis()) {
+        if(nextAction > System.currentTimeMillis()) {
             return;
         }
-        dx = dy = 0;
-        currentAnimation = stand;
+        boolean actionPerformed = false;
         if (gc.getInput().isKeyPressed(Input.KEY_SPACE)) {
             currentAnimation = attack;
             hit.play();
             attack.restart();
             nextAction = System.currentTimeMillis() + 200;
+            actionPerformed = true;
         }
         if (gc.getInput().isKeyPressed(Input.KEY_ENTER)) {
             miss.play();
             currentAnimation = attack;
             attack.restart();
             nextAction = System.currentTimeMillis() + 200;
+            actionPerformed = true;
         }
         if (gc.getInput().isKeyDown(Input.KEY_A)) {
-            dx = -maxspeed;
+            setX((int) (getX() - maxspeed * delta));
             currentAnimation = walk;
             direction = Direction.LEFT;
+            actionPerformed = true;
         }
         if (gc.getInput().isKeyDown(Input.KEY_D)) {
-            dx = maxspeed;
+            setX((int) (getX() + maxspeed * delta));
             currentAnimation = walk;
             direction = Direction.RIGHT;
+            actionPerformed = true;
         }
         if (gc.getInput().isKeyDown(Input.KEY_W)) {
-            dy = -maxspeed;
+            setY((int) (getY() - maxspeed * delta));
             currentAnimation = walk;
             direction = Direction.UP;
+            actionPerformed = true;
         }
         if (gc.getInput().isKeyDown(Input.KEY_S)) {
-            dy = maxspeed;
+            setY((int) (getY() + maxspeed * delta));
             currentAnimation = walk;
             direction = Direction.DOWN;
+            actionPerformed = true;
         }
-        move(delta);
+
+        if (actionPerformed == false) {
+            currentAnimation = stand;
+        }
     }
+
+    public void render(int i, int j) {
+        currentAnimation.draw(this.getX() - i, this.getY() - j);
+    }
+
 }

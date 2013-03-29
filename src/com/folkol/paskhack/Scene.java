@@ -8,8 +8,8 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.tiled.TiledMap;
 
 abstract public class Scene {
-    protected TiledMap map;
-    protected List<Entity> entities = new ArrayList<Entity>();
+    public TiledMap map;
+    public List<Entity> entities = new ArrayList<Entity>();
 
     abstract public void update(GameContainer gc, int delta);
     abstract public void render(GameContainer gc, Graphics g);

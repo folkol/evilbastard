@@ -13,7 +13,9 @@ public class Woods extends Scene {
 
     public Woods() throws SlickException {
         map = new TiledMap("/maps/woods.tmx");
-        hero = new Hero();
+        hero = new Hero(this);
+        entities.add(hero);
+        entities.add(new Monster(this));
         music = new Music("/snd/woods.ogg");
         music.loop(1.0f, 0.1f);
     }
@@ -21,12 +23,12 @@ public class Woods extends Scene {
     @Override
     public void update(GameContainer gc, int delta) {
         hero.update(gc, delta);
-        screenPosX = hero.getX() - 400;
-        screenPosY = hero.getY() - 300;
-        if(screenPosX < 0) {
+        screenPosX = (int) (hero.getX() - 400);
+        screenPosY = (int) (hero.getY() - 300);
+        if (screenPosX < 0) {
             screenPosX = 0;
         }
-        if(screenPosY < 0) {
+        if (screenPosY < 0) {
             screenPosY = 0;
         }
     }
@@ -34,6 +36,8 @@ public class Woods extends Scene {
     @Override
     public void render(GameContainer gc, Graphics g) {
         map.render(-screenPosX, -screenPosY);
-        hero.render(screenPosX, screenPosY);
+        for (Entity e : entities) {
+            e.render(screenPosX, screenPosY);
+        }
     }
 }
