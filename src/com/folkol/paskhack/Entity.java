@@ -1,6 +1,7 @@
 package com.folkol.paskhack;
 
 import org.newdawn.slick.Animation;
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.tiled.TiledMap;
 
 public class Entity {
@@ -10,10 +11,15 @@ public class Entity {
     protected float maxspeed;
     protected Animation currentAnimation;
     Direction direction;
-    private Scene currentScene;
+    protected Scene currentScene;
+    public float health = 100;
 
     public Entity(Scene scene) {
         currentScene = scene;
+    }
+
+    public void update(GameContainer gc, int delta) {
+
     }
 
     public float getX() {
@@ -70,6 +76,7 @@ public class Entity {
         if (Boolean.parseBoolean(tileWalkable) == false) {
             walkable = false;
         }
+
 //        for(Entity e : currentScene.entities) {
 //            if(!e.equals(this) && distance(e) < width) {
 //                walkable = false;

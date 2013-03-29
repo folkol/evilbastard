@@ -32,6 +32,7 @@ public class Hero extends Entity {
         hit = new Sound("/snd/attack_hit_shield.wav");
     }
 
+    @Override
     public void update(GameContainer gc, int delta) {
         if (nextAction > System.currentTimeMillis()) {
             return;
@@ -39,16 +40,7 @@ public class Hero extends Entity {
         dx = dy = 0;
         currentAnimation = stand;
         if (gc.getInput().isKeyPressed(Input.KEY_SPACE)) {
-            currentAnimation = attack;
-            hit.play();
-            attack.restart();
-            nextAction = System.currentTimeMillis() + 200;
-        }
-        if (gc.getInput().isKeyPressed(Input.KEY_ENTER)) {
-            miss.play();
-            currentAnimation = attack;
-            attack.restart();
-            nextAction = System.currentTimeMillis() + 200;
+            attack();
         }
         if (gc.getInput().isKeyDown(Input.KEY_A)) {
             dx = -maxspeed;
@@ -71,5 +63,24 @@ public class Hero extends Entity {
             direction = Direction.DOWN;
         }
         move(delta);
+    }
+
+    private void attack() {
+        currentAnimation = attack;
+        attack.restart();
+        nextAction = System.currentTimeMillis() + 200;
+
+        boolean hitSomething = false;
+        for(Entity e : currentScene.entities) {
+            if(!e.equals(this) && distance(e) < 50) {
+                e.health -= 10;
+                hitSomething = true;
+                hit.play();
+            }
+        }
+
+        if(!hitSomething) {
+            miss.play();
+        }
     }
 }

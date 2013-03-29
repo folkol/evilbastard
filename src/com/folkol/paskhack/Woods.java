@@ -24,6 +24,11 @@ public class Woods extends Scene {
     @Override
     public void update(GameContainer gc, int delta) {
         hero.update(gc, delta);
+
+        for(Entity e : entities) {
+            e.update(gc, delta);
+        }
+
         screenPosX = (int) (hero.getX() - 400);
         screenPosY = (int) (hero.getY() - 300);
         if (screenPosX < 0) {
