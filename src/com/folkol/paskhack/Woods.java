@@ -15,19 +15,25 @@ public class Woods extends Scene {
         map = new TiledMap("/maps/woods.tmx");
         hero = new Hero();
         music = new Music("/snd/woods.ogg");
-        music.loop(1.0f, 0.2f);
+        music.loop(1.0f, 0.1f);
     }
 
     @Override
     public void update(GameContainer gc, int delta) {
         hero.update(gc, delta);
-        screenPosX = hero.getX();
-        screenPosY = hero.getY();
+        screenPosX = hero.getX() - 400;
+        screenPosY = hero.getY() - 300;
+        if(screenPosX < 0) {
+            screenPosX = 0;
+        }
+        if(screenPosY < 0) {
+            screenPosY = 0;
+        }
     }
 
     @Override
     public void render(GameContainer gc, Graphics g) {
-        map.render(0, 0);
-        hero.render(200, 200);
+        map.render(-screenPosX, -screenPosY);
+        hero.render(screenPosX, screenPosY);
     }
 }
