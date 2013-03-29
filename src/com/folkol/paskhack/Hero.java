@@ -5,6 +5,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.SpriteSheet;
 
 public class Hero {
@@ -14,6 +15,8 @@ public class Hero {
     private Animation currentAnimation;
     int x, y;
     private float maxspeed;
+    private Sound miss;
+    private Sound hit;
 
     public Hero() throws SlickException {
         SpriteSheet hero = new SpriteSheet("/gfx/hero.png", 32, 64);
@@ -28,6 +31,9 @@ public class Hero {
 
         currentAnimation = stand;
         maxspeed = 0.2f;
+
+        miss = new Sound("/snd/attack_miss_0.wav");
+        hit = new Sound("/snd/attack_hit_shield.wav");
     }
 
     public void update(GameContainer gc, int delta) {
@@ -45,8 +51,17 @@ public class Hero {
             currentAnimation = walk;
         } else if (gc.getInput().isKeyDown(Input.KEY_SPACE)) {
             currentAnimation = attack;
+        } else if (gc.getInput().isKeyDown(Input.KEY_ENTER)) {
+            currentAnimation = attack;
         } else {
             currentAnimation = stand;
+        }
+
+        if(gc.getInput().isKeyPressed(Input.KEY_SPACE)) {
+            miss.play();
+        }
+        if(gc.getInput().isKeyPressed(Input.KEY_ENTER)) {
+            hit.play();
         }
     }
 
