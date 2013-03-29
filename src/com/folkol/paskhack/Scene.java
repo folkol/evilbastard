@@ -7,14 +7,11 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.tiled.TiledMap;
 
-public class Scene {
+abstract public class Scene {
     protected TiledMap map;
     protected List<Entity> entities = new ArrayList<Entity>();
 
-    public void update(GameContainer gc, int delta) {
-    }
+    abstract public void update(GameContainer gc, int delta);
+    abstract public void render(GameContainer gc, Graphics g);
 
-    public void render(GameContainer gc, Graphics g) {
-
-    }
 }

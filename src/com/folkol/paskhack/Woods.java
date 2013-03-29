@@ -2,28 +2,28 @@ package com.folkol.paskhack;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
-import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
 public class Woods extends Scene {
-    private Image hero;
+    private Hero hero;
+    private int screenPosX, screenPosY;
 
     public Woods() throws SlickException {
         map = new TiledMap("/maps/woods.tmx");
-        hero = new Image("/gfx/hero.png");
+        hero = new Hero();
     }
 
     @Override
     public void update(GameContainer gc, int delta) {
-        if (gc.getInput().isKeyDown(Input.KEY_A)) {
-        }
+        hero.update(gc, delta);
+        screenPosX = hero.getX();
+        screenPosY = hero.getY();
     }
 
     @Override
     public void render(GameContainer gc, Graphics g) {
         map.render(0, 0);
-        hero.draw(200, 200);
+        hero.render(200, 200);
     }
 }
