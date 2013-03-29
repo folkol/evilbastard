@@ -10,6 +10,8 @@ import org.newdawn.slick.tiled.TiledMap;
 public class Game extends BasicGame {
 
     private TiledMap tiledMap;
+    private Scene woods;
+    private Scene currentScene;
 
     public Game() {
         super("Hello World");
@@ -17,17 +19,18 @@ public class Game extends BasicGame {
 
     @Override
     public void init(GameContainer gc) throws SlickException {
-        tiledMap = new TiledMap("/maps/woods.tmx");
+        woods = new Woods();
+        currentScene = woods;
     }
 
     @Override
     public void update(GameContainer gc, int delta) throws SlickException {
-
+        currentScene.update(gc, delta);
     }
 
     @Override
     public void render(GameContainer gc, Graphics g) throws SlickException {
-        tiledMap.render(0, 0);
+        currentScene.render(gc, g);
         g.drawString("Hej världen", 100, 100);
     }
 
