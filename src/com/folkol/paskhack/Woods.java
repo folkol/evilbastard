@@ -1,14 +1,15 @@
 package com.folkol.paskhack;
 
+import java.util.Collections;
+import java.util.Comparator;
+
 import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
 public class Woods extends Scene {
     private Hero hero;
-    private int screenPosX, screenPosY;
     private Music music;
 
     public Woods() throws SlickException {
@@ -31,13 +32,14 @@ public class Woods extends Scene {
         if (screenPosY < 0) {
             screenPosY = 0;
         }
+
+        Collections.sort(entities, new Comparator<Entity>() {
+
+            @Override
+            public int compare(Entity e1, Entity e2) {
+                return (int) (e1.y - e2.y);
+            }
+        });
     }
 
-    @Override
-    public void render(GameContainer gc, Graphics g) {
-        map.render(-screenPosX, -screenPosY);
-        for (Entity e : entities) {
-            e.render(screenPosX, screenPosY);
-        }
-    }
 }

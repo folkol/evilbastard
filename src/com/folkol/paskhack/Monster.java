@@ -12,7 +12,6 @@ public class Monster extends Entity {
     private Animation walk;
     private Animation stand;
     private Animation attack;
-    private Animation currentAnimation;
 
     private Sound miss;
     private Sound hit;
@@ -27,11 +26,11 @@ public class Monster extends Entity {
         Image i2 = hero.getSprite(3, 0);
         attack = new Animation(new Image[] { i1, i2 }, 100);
         setX(200);
-        setY(200);
-        currentAnimation = stand;
+        setY(250);
         maxspeed = 0.2f;
         miss = new Sound("/snd/attack_miss_0.wav");
         hit = new Sound("/snd/attack_hit_shield.wav");
+        currentAnimation = stand;
     }
 
     public void update(GameContainer gc, int delta) {
@@ -81,10 +80,6 @@ public class Monster extends Entity {
         if (actionPerformed == false) {
             currentAnimation = stand;
         }
-    }
-
-    public void render(int i, int j) {
-        currentAnimation.draw(this.getX() - i, this.getY() - j);
     }
 
 }

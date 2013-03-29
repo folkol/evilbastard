@@ -10,8 +10,15 @@ import org.newdawn.slick.tiled.TiledMap;
 abstract public class Scene {
     public TiledMap map;
     public List<Entity> entities = new ArrayList<Entity>();
+    protected int screenPosX, screenPosY;
 
     abstract public void update(GameContainer gc, int delta);
-    abstract public void render(GameContainer gc, Graphics g);
+
+    public void render(GameContainer gc, Graphics g) {
+        map.render(-screenPosX, -screenPosY);
+        for (Entity e : entities) {
+            e.render(screenPosX, screenPosY);
+        }
+    }
 
 }

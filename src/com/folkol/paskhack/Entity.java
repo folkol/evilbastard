@@ -70,6 +70,12 @@ public class Entity {
         if (Boolean.parseBoolean(tileWalkable) == false) {
             walkable = false;
         }
+//        for(Entity e : currentScene.entities) {
+//            if(!e.equals(this) && distance(e) < width) {
+//                walkable = false;
+//                break;
+//            }
+//        }
         return walkable;
     }
 
