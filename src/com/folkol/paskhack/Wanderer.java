@@ -36,7 +36,7 @@ public class Wanderer extends Entity {
         SpriteSheet hero = new SpriteSheet("/gfx/wanderer.png", 32, 64);
         stand = new Animation(hero, 0, 0, 0, 0, true, 250, true);
         walk = new Animation(hero, 0, 0, 1, 0, true, 100, true);
-        speak = new Animation(hero, 2, 0, 2, 0, true, 100, true);
+        speak = new Animation(hero, 2, 0, 3, 0, true, 500, true);
         setX(200);
         setY(250);
         maxspeed = 0.05f;
@@ -56,7 +56,6 @@ public class Wanderer extends Entity {
         float distance = distance(currentScene.hero);
         float homeDistance = (float) Math.sqrt(Math.pow(x - homeX, 2) + Math.pow(y - homeY, 2));
         dx = dy = 0;
-
 
         switch(phase) {
         case IDLE:

@@ -102,4 +102,9 @@ public class Monster extends Entity {
             death.play();
         }
     }
+
+    @Override
+    public boolean isHostile() {
+        return isAlive();
+    }
 }

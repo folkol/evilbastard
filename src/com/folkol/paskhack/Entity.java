@@ -101,4 +101,8 @@ public class Entity {
         health -= amount;
     }
 
+    public boolean isHostile() {
+        return false;
+    }
+
 }

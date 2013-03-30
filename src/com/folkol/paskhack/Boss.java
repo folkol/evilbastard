@@ -99,4 +99,9 @@ public class Boss extends Entity {
             death.play();
         }
     }
+
+    @Override
+    public boolean isHostile() {
+        return isAlive();
+    }
 }

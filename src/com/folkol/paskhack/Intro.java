@@ -6,7 +6,6 @@ import java.util.Comparator;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Input;
 import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
@@ -14,6 +13,8 @@ import org.newdawn.slick.tiled.TiledMap;
 public class Intro extends Scene {
     private Music music;
     private Scene nextScene;
+    private Wanderer wanderer;
+    private boolean sceneFinished = true;
 
     public Intro() throws SlickException {
         map = new TiledMap("/maps/intro.tmx");
@@ -30,10 +31,10 @@ public class Intro extends Scene {
             int objectX = map.getObjectX(0, i);
             int objectY = map.getObjectY(0, i);
             if ("wanderer".equals(objectType)) {
-                Wanderer monster = new Wanderer(this);
-                monster.setX(objectX);
-                monster.setY(objectY);
-                entities.add(monster);
+                wanderer = new Wanderer(this);
+                wanderer.setX(objectX);
+                wanderer.setY(objectY);
+                entities.add(wanderer);
             } else if ("hero".equals(objectType)) {
                 hero = new Hero(this);
                 hero.setX(objectX);
@@ -48,18 +49,18 @@ public class Intro extends Scene {
 
     @Override
     public void update(GameContainer gc, int delta) {
-        if (gc.getInput().isKeyPressed(Input.KEY_ESCAPE)) {
-            if (!checkWinConditions(gc)) {
-                finished = true;
-            }
-            if(!checkLoseConditions(gc)) {
-                finished = true;
-            }
+        if (hero.x > 750) {
+            sceneFinished = false;
         }
+        wanderer.update(gc, delta);
         if(!checkWinConditions(gc)) {
+            hero.standStill();
+            finished = true;
+        }
+        if (!checkWinConditions(gc)) {
             return;
         }
-        if(!checkLoseConditions(gc)) {
+        if (!checkLoseConditions(gc)) {
             return;
         }
         hero.update(gc, delta);
@@ -77,11 +78,7 @@ public class Intro extends Scene {
     }
 
     public boolean checkWinConditions(GameContainer gc) {
-        if (monstersAlive() == 0) {
-            hero.victory();
-            return false;
-        }
-        return true;
+        return sceneFinished ;
     }
 
     public boolean checkLoseConditions(GameContainer gc) {
