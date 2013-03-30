@@ -11,7 +11,6 @@ import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 
 public class Splash extends Scene {
-    private Music music;
     private Scene nextScene;
     private Image image;
     float x, y;
@@ -28,7 +27,6 @@ public class Splash extends Scene {
         x = 400;
         y = 850;
         finished = false;
-        music.loop(1.0f, 0.1f);
     }
 
     @Override

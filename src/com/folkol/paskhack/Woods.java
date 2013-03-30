@@ -12,7 +12,6 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
 public class Woods extends Scene {
-    private Music music;
     private Scene nextScene;
 
     public Woods() throws SlickException {
@@ -43,7 +42,6 @@ public class Woods extends Scene {
                 System.out.println("Unknown object type found");
             }
         }
-        music.loop(1.0f, 0.1f);
     }
 
     @Override

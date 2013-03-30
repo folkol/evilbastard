@@ -32,6 +32,7 @@ public class Game extends BasicGame {
         cave.setNextScene(gameWon);
         currentScene = splash;
         splash.reset();
+        splash.start();
     }
 
     @Override
@@ -52,6 +53,7 @@ public class Game extends BasicGame {
     private void nextScene() throws SlickException {
         Scene nextScene = currentScene.getNextScene();
         nextScene.reset();
+        nextScene.start();
         currentScene = nextScene;
     }
 
