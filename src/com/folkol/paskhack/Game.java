@@ -22,6 +22,11 @@ public class Game extends BasicGame {
 
     @Override
     public void update(GameContainer gc, int delta) throws SlickException {
+        if(currentScene.finished()) {
+            Scene nextScene = currentScene.getNext();
+            nextScene.reset();
+            currentScene = nextScene;
+        }
         currentScene.update(gc, delta);
     }
 

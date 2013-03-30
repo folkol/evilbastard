@@ -5,13 +5,15 @@ import java.util.List;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
 abstract public class Scene {
     public TiledMap map;
-    public Entity hero;
+    public Hero hero;
     public List<Entity> entities = new ArrayList<Entity>();
     protected int screenPosX, screenPosY;
+    protected boolean finished;
 
     abstract public void update(GameContainer gc, int delta);
 
@@ -22,4 +24,19 @@ abstract public class Scene {
         }
     }
 
+    public boolean finished() {
+        return finished;
+    }
+
+    public Scene getNext() {
+        return this;
+    }
+
+    public void reset() throws SlickException {
+
+    }
+
+    public boolean checkConditions(GameContainer gc) {
+        return true;
+    }
 }

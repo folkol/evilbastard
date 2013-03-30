@@ -3,16 +3,28 @@ package com.folkol.paskhack;
 import java.util.Collections;
 import java.util.Comparator;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
 public class Woods extends Scene {
     private Music music;
+    private Scene nextScene;
 
     public Woods() throws SlickException {
         map = new TiledMap("/maps/woods.tmx");
+        music = new Music("/snd/woods.ogg");
+        nextScene = this;
+        reset();
+    }
+
+    public void reset() throws SlickException {
+        finished = false;
+        entities.clear();
         for (int i = 0; i < map.getObjectCount(0); i++) {
             String objectType = map.getObjectType(0, i);
             int objectX = map.getObjectX(0, i);
@@ -22,7 +34,7 @@ public class Woods extends Scene {
                 monster.setX(objectX);
                 monster.setY(objectY);
                 entities.add(monster);
-            } else if ("hero".equals(objectType)){
+            } else if ("hero".equals(objectType)) {
                 hero = new Hero(this);
                 hero.setX(objectX);
                 hero.setY(objectY);
@@ -31,12 +43,19 @@ public class Woods extends Scene {
                 System.out.println("Unknown object type found");
             }
         }
-        music = new Music("/snd/woods.ogg");
         music.loop(1.0f, 0.1f);
     }
 
     @Override
     public void update(GameContainer gc, int delta) {
+        if (gc.getInput().isKeyPressed(Input.KEY_ESCAPE)) {
+            if (!checkConditions(gc)) {
+                finished = true;
+            }
+        }
+        if(!checkConditions(gc)) {
+            return;
+        }
         hero.update(gc, delta);
         for (Entity e : entities) {
             e.update(gc, delta);
@@ -55,5 +74,37 @@ public class Woods extends Scene {
                 return (int) (e1.y - e2.y);
             }
         });
+    }
+
+    public boolean checkConditions(GameContainer gc) {
+        if (monstersAlive() == 0) {
+            hero.victory();
+            nextScene = this;
+            return false;
+        }
+        if (hero.health <= 0) {
+            nextScene = this;
+            return false;
+        }
+        return true;
+    }
+
+    private int monstersAlive() {
+        int numAlive = 0;
+        for (Entity e : entities) {
+            if (!e.equals(hero) && e.isAlive()) {
+                numAlive++;
+            }
+        }
+        return numAlive;
+    }
+
+    @Override
+    public void render(GameContainer gc, Graphics g) {
+        super.render(gc, g);
+        if (monstersAlive() == 0 || !hero.isAlive()) {
+            g.setColor(new Color(0.0f, 0.0f, 0.0f, 0.5f));
+            g.fillRect(0, 0, 800, 600);
+        }
     }
 }

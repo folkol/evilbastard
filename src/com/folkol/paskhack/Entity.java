@@ -106,4 +106,5 @@ public class Entity {
     public void takeDamage(int amount) {
         health -= amount;
     }
+
 }
