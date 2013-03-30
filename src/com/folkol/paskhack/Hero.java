@@ -47,7 +47,6 @@ public class Hero extends Entity {
 
     @Override
     public void update(GameContainer gc, int delta) {
-        System.out.println("Health: " + health);
         if(health < maxhealth) {
             health+=REGEN;
         }

@@ -77,12 +77,6 @@ public class Entity {
             walkable = false;
         }
 
-//        for(Entity e : currentScene.entities) {
-//            if(!e.equals(this) && distance(e) < width) {
-//                walkable = false;
-//                break;
-//            }
-//        }
         return walkable;
     }
 

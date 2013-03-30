@@ -4,22 +4,32 @@ import java.util.Random;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Input;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
 public class Wanderer extends Entity {
+    private enum Phase {
+        IDLE,
+        WALK_TO_HERO,
+        SPEAK,
+        WALK_BACK,
+        STAY
+    }
     private static final int CLOSE_ENOUGH_TO_HOME = 5;
     private static final int AGGRO_RANGE  = 250;
     private static final int PREFERRED_FIGHTING_DISTANCE = 40;
     private Animation walk;
     private Animation stand;
-    private Animation attack;
     private long nextAction;
     private Animation dead;
     public float homeX, homeY;
     private Random rnd = new Random();
     private Animation speak;
+    private Phase phase = Phase.IDLE;
+    private long beganSpeech;
+    private long speechLength = 5000;
+    private boolean showSpeechBubble;
 
     public Wanderer(Scene scene) throws SlickException {
         super(scene);
@@ -42,32 +52,60 @@ public class Wanderer extends Entity {
         if (nextAction > System.currentTimeMillis()) {
             return;
         }
-        if(gc.getInput().isKeyDown(Input.KEY_U)) {
-            currentAnimation = speak;
-        } else {
-            currentAnimation = walk;
-        }
 
-        currentAnimation = stand;
         float distance = distance(currentScene.hero);
         float homeDistance = (float) Math.sqrt(Math.pow(x - homeX, 2) + Math.pow(y - homeY, 2));
         dx = dy = 0;
-        if (distance > PREFERRED_FIGHTING_DISTANCE && distance < AGGRO_RANGE && currentScene.hero.isAlive()) {
-            float signX = currentScene.hero.x - x;
-            float signY = currentScene.hero.y - y;
-            dx = Math.signum(signX) * maxspeed;
-            dy = Math.signum(signY) * maxspeed;
-            currentAnimation = walk;
-        } else if (homeDistance > CLOSE_ENOUGH_TO_HOME) {
-            float signX = homeX - x;
-            float signY = homeY - y;
-            dx = (float) (Math.signum(signX) * maxspeed * 0.5);
-            dy = (float) (Math.signum(signY) * maxspeed * 0.5);
-            currentAnimation = walk;
+
+
+        switch(phase) {
+        case IDLE:
+            if (distance < AGGRO_RANGE) {
+                phase = Phase.WALK_TO_HERO;
+                currentAnimation = walk;
+            }
+            break;
+        case WALK_TO_HERO:
+            if (distance > PREFERRED_FIGHTING_DISTANCE) {
+                float signX = currentScene.hero.x - x;
+                float signY = currentScene.hero.y - y;
+                dx = Math.signum(signX) * maxspeed;
+                dy = Math.signum(signY) * maxspeed;
+                currentAnimation = walk;
+            } else {
+                phase = Phase.SPEAK;
+                currentAnimation = speak;
+                showSpeechBubble = true;
+                beganSpeech = System.currentTimeMillis();
+            }
+            break;
+        case SPEAK:
+            if(System.currentTimeMillis() > beganSpeech + speechLength) {
+                phase = Phase.WALK_BACK;
+                currentAnimation = walk;
+                showSpeechBubble = false;
+            }
+            break;
+        case WALK_BACK:
+            if (homeDistance > CLOSE_ENOUGH_TO_HOME) {
+                float signX = homeX - x;
+                float signY = homeY - y;
+                dx = (float) (Math.signum(signX) * maxspeed);
+                dy = (float) (Math.signum(signY) * maxspeed);
+            } else {
+                phase = Phase.STAY;
+                currentAnimation = stand;
+            }
+            break;
+        case STAY:
+            break;
         }
+
         move(delta);
-        if (distance(currentScene.hero) < 50) {
-        }
+    }
+
+    private void drawSpeechBubble(Graphics g) {
+
     }
 
     @Override
@@ -80,6 +118,11 @@ public class Wanderer extends Entity {
     public void setY(float y) {
         homeY = y;
         super.setY(y);
+    }
+
+    @Override
+    public void render(int screenPosX, int screenPosY) {
+        super.render(screenPosX, screenPosY);
     }
 
 }
