@@ -11,7 +11,8 @@ public class Game extends BasicGame {
     private Scene woods;
     private Scene currentScene;
     private Cave cave;
-    private GameWon gameWon;
+    private Outro gameWon;
+    private Splash splash;
 
     public Game() {
         super("Hello World");
@@ -19,12 +20,14 @@ public class Game extends BasicGame {
 
     @Override
     public void init(GameContainer gc) throws SlickException {
+        splash = new Splash();
         woods = new Woods();
         cave = new Cave();
-        gameWon = new GameWon();
+        gameWon = new Outro();
+        splash.setNextScene(woods);
         woods.setNextScene(cave);
         cave.setNextScene(gameWon);
-        currentScene = woods;
+        currentScene = splash;
     }
 
     @Override

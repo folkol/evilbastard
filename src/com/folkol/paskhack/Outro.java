@@ -11,14 +11,14 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 
-public class GameWon extends Scene {
+public class Outro extends Scene {
     private Music music;
     private Scene nextScene;
     private Image image;
     float x, y;
     List<String> text = new ArrayList<String>();
 
-    public GameWon() throws SlickException {
+    public Outro() throws SlickException {
         music = new Music("/snd/woods.ogg");
         image = new Image("/gfx/outro.png");
         nextScene = this;
@@ -31,31 +31,25 @@ public class GameWon extends Scene {
         text.add("");
         text.add("");
         text.add("");
-
-        text.add("...");
-        text.add("");
-        text.add("");
-        text.add("");
-        text.add("");
-        text.add("There are always more evil bastards to kill!");
         text.add("");
         text.add("");
         text.add("");
         text.add("");
         text.add("");
-        text.add("Programmer: Folkol");
         text.add("");
         text.add("");
-        text.add("Sound artist: Folkol");
         text.add("");
         text.add("");
-        text.add("Graphics artist: Folkol");
+        text.add("Programmer:           Folkol");
         text.add("");
         text.add("");
-        text.add("Game designer: Folkol");
+        text.add("Sound artist:         Folkol");
         text.add("");
         text.add("");
-        text.add("Game designer: Folkol");
+        text.add("Graphics artist:      Folkol");
+        text.add("");
+        text.add("");
+        text.add("Game designer:        Folkol");
         text.add("");
         text.add("");
         text.add("");
@@ -69,7 +63,16 @@ public class GameWon extends Scene {
         text.add("");
         text.add("");
         text.add("");
-        text.add("Glad påsk! :-)");
+        text.add("");
+        text.add("");
+        text.add("");
+        text.add("");
+        text.add("");
+        text.add("");
+        text.add("");
+        text.add("");
+        text.add("");
+        text.add("        *** Glad påsk! :-) ***");
 
         reset();
     }
