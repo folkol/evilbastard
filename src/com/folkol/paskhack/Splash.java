@@ -7,7 +7,6 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
-import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 
 public class Splash extends Scene {
@@ -17,7 +16,6 @@ public class Splash extends Scene {
     List<String> text = new ArrayList<String>();
 
     public Splash() throws SlickException {
-        music = new Music("/snd/woods.ogg");
         image = new Image("/gfx/splash.png");
 
         reset();
