@@ -66,40 +66,39 @@ public class Hero extends Entity {
             if (nextAction < System.currentTimeMillis()) {
                 currentAnimation = walk;
             }
-            direction = Direction.LEFT;
         }
         if (gc.getInput().isKeyDown(Input.KEY_D)) {
             dx = maxspeed;
             if (nextAction < System.currentTimeMillis()) {
                 currentAnimation = walk;
             }
-            direction = Direction.RIGHT;
         }
         if (gc.getInput().isKeyDown(Input.KEY_W)) {
             dy = -maxspeed;
             if (nextAction < System.currentTimeMillis()) {
                 currentAnimation = walk;
             }
-            direction = Direction.UP;
         }
         if (gc.getInput().isKeyDown(Input.KEY_S)) {
             dy = maxspeed;
             if (nextAction < System.currentTimeMillis()) {
                 currentAnimation = walk;
             }
-            direction = Direction.DOWN;
         }
         move(delta);
         if (nextAction > System.currentTimeMillis()) {
             return;
         }
         dx = dy = 0;
-        if (gc.getInput().isKeyPressed(Input.KEY_SPACE)) {
+        if (gc.getInput().isKeyDown(Input.KEY_SPACE)) {
             attack();
         }
     }
 
     private void attack() {
+        if(nextAction > System.currentTimeMillis()) {
+            return;
+        }
         currentAnimation = attack;
         attack.restart();
         nextAction = System.currentTimeMillis() + 200;

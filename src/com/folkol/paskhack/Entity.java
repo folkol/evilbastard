@@ -10,7 +10,6 @@ public class Entity {
     public int width = 32, height = 32;
     protected float maxspeed;
     protected Animation currentAnimation;
-    Direction direction;
     protected Scene currentScene;
     public float health = 100;
 

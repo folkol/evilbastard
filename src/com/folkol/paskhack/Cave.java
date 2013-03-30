@@ -16,7 +16,7 @@ public class Cave extends Scene {
 
     public Cave() throws SlickException {
         map = new TiledMap("/maps/cave.tmx");
-        music = new Music("/snd/woods.ogg");
+        music = new Music("/snd/cave.wav");
         nextScene = this;
         reset();
     }
