@@ -38,6 +38,11 @@ public class Woods extends Scene {
                 hero.setX(objectX);
                 hero.setY(objectY);
                 entities.add(hero);
+            } else if ("tree".equals(objectType)) {
+                Tree tree = new Tree(this);
+                tree.setX(objectX);
+                tree.setY(objectY);
+                entities.add(tree);
             } else {
                 System.out.println("Unknown object type found");
             }
@@ -96,13 +101,13 @@ public class Woods extends Scene {
     }
 
     private int monstersAlive() {
-        int numAlive = 0;
+        int numHostiles = 0;
         for (Entity e : entities) {
-            if (!e.equals(hero) && e.isAlive()) {
-                numAlive++;
+            if (!e.equals(hero) && e.isHostile()) {
+                numHostiles++;
             }
         }
-        return numAlive;
+        return numHostiles;
     }
 
     @Override
