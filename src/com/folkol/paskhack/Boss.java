@@ -24,6 +24,7 @@ public class Boss extends Entity {
 
     public Boss(Scene scene) throws SlickException {
         super(scene);
+        health = 1000.0f;
         SpriteSheet hero = new SpriteSheet("/gfx/boss.png", 32, 64);
         stand = new Animation(hero, 0, 0, 0, 0, true, 250, true);
         walk = new Animation(hero, 1, 0, 2, 0, true, 100, true);
@@ -31,7 +32,7 @@ public class Boss extends Entity {
         dead.stopAt(3);
         Image i1 = hero.getSprite(0, 0);
         Image i2 = hero.getSprite(3, 0);
-        attack = new Animation(new Image[] { i1, i2 }, 100);
+        attack = new Animation(new Image[] { i1, i2 }, 500);
         setX(200);
         setY(250);
         maxspeed = 0.05f;
@@ -79,8 +80,8 @@ public class Boss extends Entity {
     private void attack() {
         currentAnimation = attack;
         attack.restart();
-        nextAction = System.currentTimeMillis() + 200;
-        currentScene.hero.takeDamage(rnd .nextInt(10));
+        nextAction = System.currentTimeMillis() + 1000;
+        currentScene.hero.takeDamage(25 + rnd.nextInt(25));
         hit.play();
     }
 

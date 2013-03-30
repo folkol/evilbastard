@@ -11,6 +11,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
 abstract public class Scene {
+    protected Boss boss;
     public TiledMap map;
     public Hero hero;
     public List<Entity> entities = new ArrayList<Entity>();
@@ -28,11 +29,15 @@ abstract public class Scene {
         }
 
         if(hero.health < 100) {
-            renderHealthbar(gc);
+            renderHeroHealthbar(gc);
+        }
+
+        if(boss != null) {
+            renderBossHealthbar(gc);
         }
     }
 
-    private void renderHealthbar(GameContainer gc) {
+    private void renderHeroHealthbar(GameContainer gc) {
         Graphics graphics = gc.getGraphics();
         graphics.setColor(Color.lightGray);
         int healthBarX = 150;
@@ -47,6 +52,26 @@ abstract public class Scene {
         graphics.setColor(Color.red);
         graphics.fillRect(healthBarX, healthBarY, healthBarWidth*heroHealthFactor, healthBarHeight);
         graphics.setColor(Color.white);
+        graphics.drawRect(healthBarX, healthBarY, healthBarWidth, healthBarHeight);
+
+    }
+
+    private void renderBossHealthbar(GameContainer gc) {
+        Graphics graphics = gc.getGraphics();
+        graphics.setColor(Color.lightGray);
+        int healthBarX = 150;
+        int healthBarY = 50;
+        int healthBarWidth = 500;
+        int healthBarHeight = 20;
+        float heroHealthFactor = boss.health / 1000.0f;
+        if(heroHealthFactor < 0) {
+            heroHealthFactor = 0;
+        }
+        graphics.fillRect(healthBarX, healthBarY, healthBarWidth, healthBarHeight);
+        graphics.setColor(Color.yellow);
+        graphics.fillRect(healthBarX, healthBarY, healthBarWidth*heroHealthFactor, healthBarHeight);
+        graphics.setLineWidth(2);
+        graphics.setColor(Color.black);
         graphics.drawRect(healthBarX, healthBarY, healthBarWidth, healthBarHeight);
 
     }

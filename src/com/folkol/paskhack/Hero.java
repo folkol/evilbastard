@@ -11,7 +11,7 @@ import org.newdawn.slick.Sound;
 import org.newdawn.slick.SpriteSheet;
 
 public class Hero extends Entity {
-    private static final double REGEN = 0.1;
+    private static final double REGEN = 0.05;
     private Animation walk;
     private Animation stand;
     private Animation attack;

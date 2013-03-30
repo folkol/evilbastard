@@ -29,10 +29,10 @@ public class Cave extends Scene {
             int objectX = map.getObjectX(0, i);
             int objectY = map.getObjectY(0, i);
             if ("boss".equals(objectType)) {
-                Boss monster = new Boss(this);
-                monster.setX(objectX);
-                monster.setY(objectY);
-                entities.add(monster);
+                boss = new Boss(this);
+                boss.setX(objectX);
+                boss.setY(objectY);
+                entities.add(boss);
             } else if ("monster".equals(objectType)) {
                 Monster monster = new Monster(this);
                 monster.setX(objectX);
