@@ -31,6 +31,7 @@ public class Game extends BasicGame {
         woods.setNextScene(cave);
         cave.setNextScene(gameWon);
         currentScene = splash;
+        splash.reset();
     }
 
     @Override

@@ -71,7 +71,6 @@ public class Outro extends Scene {
         text.add("");
         text.add("");
         text.add("");
-        text.add("");
         text.add("        *** Glad påsk! :-) ***");
 
         reset();
