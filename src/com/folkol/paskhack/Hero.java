@@ -27,59 +27,67 @@ public class Hero extends Entity {
         setX(200);
         setY(300);
         currentAnimation = stand;
-        maxspeed = 0.2f;
+        maxspeed = 0.1f;
         miss = new Sound("/snd/attack_miss_0.wav");
         hit = new Sound("/snd/attack_hit_shield.wav");
     }
 
     @Override
     public void update(GameContainer gc, int delta) {
-        if (nextAction > System.currentTimeMillis()) {
-            return;
-        }
-        dx = dy = 0;
-        currentAnimation = stand;
-        if (gc.getInput().isKeyPressed(Input.KEY_SPACE)) {
-            attack();
+        if (nextAction < System.currentTimeMillis()) {
+            currentAnimation = stand;
         }
         if (gc.getInput().isKeyDown(Input.KEY_A)) {
             dx = -maxspeed;
-            currentAnimation = walk;
+            if (nextAction < System.currentTimeMillis()) {
+                currentAnimation = walk;
+            }
             direction = Direction.LEFT;
         }
         if (gc.getInput().isKeyDown(Input.KEY_D)) {
             dx = maxspeed;
-            currentAnimation = walk;
+            if (nextAction < System.currentTimeMillis()) {
+                currentAnimation = walk;
+            }
             direction = Direction.RIGHT;
         }
         if (gc.getInput().isKeyDown(Input.KEY_W)) {
             dy = -maxspeed;
-            currentAnimation = walk;
+            if (nextAction < System.currentTimeMillis()) {
+                currentAnimation = walk;
+            }
             direction = Direction.UP;
         }
         if (gc.getInput().isKeyDown(Input.KEY_S)) {
             dy = maxspeed;
-            currentAnimation = walk;
+            if (nextAction < System.currentTimeMillis()) {
+                currentAnimation = walk;
+            }
             direction = Direction.DOWN;
         }
         move(delta);
+        if (nextAction > System.currentTimeMillis()) {
+            return;
+        }
+        dx = dy = 0;
+        if (gc.getInput().isKeyPressed(Input.KEY_SPACE)) {
+            attack();
+        }
     }
 
     private void attack() {
         currentAnimation = attack;
         attack.restart();
         nextAction = System.currentTimeMillis() + 200;
-
         boolean hitSomething = false;
-        for(Entity e : currentScene.entities) {
-            if(!e.equals(this) && distance(e) < 50) {
+        for (Entity e : currentScene.entities) {
+            if (!e.equals(this) && distance(e) < 50) {
                 e.health -= 10;
                 hitSomething = true;
                 hit.play();
             }
         }
-
-        if(!hitSomething) {
+        if (!hitSomething) {
             miss.play();
         }
     }

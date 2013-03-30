@@ -9,22 +9,24 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
 public class Woods extends Scene {
-    private Hero hero;
     private Music music;
 
     public Woods() throws SlickException {
         map = new TiledMap("/maps/woods.tmx");
-        hero = new Hero(this);
-        entities.add(hero);
         for (int i = 0; i < map.getObjectCount(0); i++) {
             String objectType = map.getObjectType(0, i);
             int objectX = map.getObjectX(0, i);
             int objectY = map.getObjectY(0, i);
-            if (objectType.equals("monster")) {
+            if ("monster".equals(objectType)) {
                 Monster monster = new Monster(this);
                 monster.setX(objectX);
                 monster.setY(objectY);
                 entities.add(monster);
+            } else if ("hero".equals(objectType)){
+                hero = new Hero(this);
+                hero.setX(objectX);
+                hero.setY(objectY);
+                entities.add(hero);
             } else {
                 System.out.println("Unknown object type found");
             }

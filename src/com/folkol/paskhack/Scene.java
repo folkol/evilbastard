@@ -9,6 +9,7 @@ import org.newdawn.slick.tiled.TiledMap;
 
 abstract public class Scene {
     public TiledMap map;
+    public Entity hero;
     public List<Entity> entities = new ArrayList<Entity>();
     protected int screenPosX, screenPosY;
 

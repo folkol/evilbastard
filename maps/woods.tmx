@@ -14,12 +14,13 @@
   </data>
  </layer>
  <objectgroup name="Object Layer 1" width="100" height="100">
-  <object type="monster" x="348" y="202" width="32" height="32"/>
+  <object type="monster" x="522" y="159" width="32" height="32"/>
   <object type="monster" x="874" y="642" width="32" height="32"/>
-  <object type="monster" x="429" y="217" width="32" height="32"/>
+  <object type="monster" x="601" y="206" width="32" height="32"/>
   <object type="monster" x="987" y="583" width="32" height="32"/>
   <object type="monster" x="1082" y="579" width="32" height="32"/>
   <object type="monster" x="1005" y="709" width="32" height="32"/>
   <object type="monster" x="1195" y="668" width="32" height="32"/>
+  <object type="hero" x="36" y="286" width="32" height="32"/>
  </objectgroup>
 </map>

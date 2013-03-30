@@ -22,7 +22,6 @@ public class Game extends BasicGame {
 
     @Override
     public void update(GameContainer gc, int delta) throws SlickException {
-        System.out.println("Delta: " + delta);
         currentScene.update(gc, delta);
     }
 
@@ -35,7 +34,7 @@ public class Game extends BasicGame {
         AppGameContainer app = new AppGameContainer(new Game());
         app.setVSync(true);
         app.setDisplayMode(800, 600, false);
-        app.setShowFPS(false);
+        app.setShowFPS(true);
         app.start();
     }
 }
