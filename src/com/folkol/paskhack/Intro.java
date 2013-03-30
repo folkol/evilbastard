@@ -101,7 +101,7 @@ public class Intro extends Scene {
     @Override
     public void render(GameContainer gc, Graphics g) {
         super.render(gc, g);
-        if (monstersAlive() == 0 || !hero.isAlive()) {
+        if (!hero.isAlive()) {
             g.setColor(new Color(0.0f, 0.0f, 0.0f, 0.5f));
             g.fillRect(0, 0, 800, 600);
         }
