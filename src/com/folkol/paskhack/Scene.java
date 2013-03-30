@@ -3,6 +3,7 @@ package com.folkol.paskhack;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Music;
@@ -25,6 +26,29 @@ abstract public class Scene {
         for (Entity e : entities) {
             e.render(screenPosX, screenPosY);
         }
+
+        if(hero.health < 100) {
+            renderHealthbar(gc);
+        }
+    }
+
+    private void renderHealthbar(GameContainer gc) {
+        Graphics graphics = gc.getGraphics();
+        graphics.setColor(Color.lightGray);
+        int healthBarX = 150;
+        int healthBarY = 550;
+        int healthBarWidth = 500;
+        int healthBarHeight = 20;
+        float heroHealthFactor = hero.health / 100.0f;
+        if(heroHealthFactor < 0) {
+            heroHealthFactor = 0;
+        }
+        graphics.fillRect(healthBarX, healthBarY, healthBarWidth, healthBarHeight);
+        graphics.setColor(Color.red);
+        graphics.fillRect(healthBarX, healthBarY, healthBarWidth*heroHealthFactor, healthBarHeight);
+        graphics.setColor(Color.white);
+        graphics.drawRect(healthBarX, healthBarY, healthBarWidth, healthBarHeight);
+
     }
 
     public boolean finished() {
