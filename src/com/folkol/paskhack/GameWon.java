@@ -35,7 +35,7 @@ public class GameWon extends Scene {
     @Override
     public void update(GameContainer gc, int delta) {
         y -= 0.1 * delta;
-        if (gc.getInput().isKeyPressed(Input.KEY_SPACE) || gc.getInput().isKeyPressed(Input.KEY_ESCAPE)) {
+        if (gc.getInput().isKeyPressed(Input.KEY_ESCAPE)) {
             gc.exit();
         }
     }
