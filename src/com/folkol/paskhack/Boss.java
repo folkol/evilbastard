@@ -1,5 +1,7 @@
 package com.folkol.paskhack;
 
+import java.util.Random;
+
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
@@ -17,6 +19,7 @@ public class Boss extends Entity {
     private long nextAction;
     private Animation dead;
     public float homeX, homeY;
+    private Random rnd = new Random();
 
     public Boss(Scene scene) throws SlickException {
         super(scene);
@@ -46,24 +49,35 @@ public class Boss extends Entity {
         if (nextAction > System.currentTimeMillis()) {
             return;
         }
-
+        currentAnimation = stand;
         float distance = distance(currentScene.hero);
         float homeDistance = (float) Math.sqrt(Math.pow(x - homeX, 2) + Math.pow(y - homeY, 2));
-
         dx = dy = 0;
-        if(distance > 40 && distance < 250 && homeDistance < 400) {
+        if (distance > 40 && distance < 250 && homeDistance < 400 && currentScene.hero.isAlive()) {
             float signX = currentScene.hero.x - x;
             float signY = currentScene.hero.y - y;
             dx = Math.signum(signX) * maxspeed;
             dy = Math.signum(signY) * maxspeed;
+            currentAnimation = walk;
         } else if (homeDistance > 20) {
             float signX = homeX - x;
             float signY = homeY - y;
             dx = (float) (Math.signum(signX) * maxspeed * 0.5);
             dy = (float) (Math.signum(signY) * maxspeed * 0.5);
+            currentAnimation = walk;
         }
         move(delta);
-        currentAnimation = stand;
+        if (distance(currentScene.hero) < 50) {
+            attack();
+        }
+    }
+
+    private void attack() {
+        currentAnimation = attack;
+        attack.restart();
+        nextAction = System.currentTimeMillis() + 200;
+        currentScene.hero.takeDamage(rnd .nextInt(10));
+        hit.play();
     }
 
     @Override
@@ -81,7 +95,7 @@ public class Boss extends Entity {
     @Override
     public void takeDamage(int amount) {
         super.takeDamage(amount);
-        if(health <= 0) {
+        if (health <= 0) {
             death.play();
         }
     }

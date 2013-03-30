@@ -11,6 +11,7 @@ import org.newdawn.slick.Sound;
 import org.newdawn.slick.SpriteSheet;
 
 public class Hero extends Entity {
+    private static final double REGEN = 0.1;
     private Animation walk;
     private Animation stand;
     private Animation attack;
@@ -21,9 +22,11 @@ public class Hero extends Entity {
     Random rnd = new Random();
     private Animation victory;
     private Animation death;
+    private float maxhealth;
 
     public Hero(Scene scene) throws SlickException {
         super(scene);
+        maxhealth = health;
         SpriteSheet hero = new SpriteSheet("/gfx/hero.png", 32, 64);
         stand = new Animation(hero, 0, 0, 0, 0, true, 250, true);
         walk = new Animation(hero, 1, 0, 2, 0, true, 100, true);
@@ -44,11 +47,19 @@ public class Hero extends Entity {
 
     @Override
     public void update(GameContainer gc, int delta) {
-        if (nextAction < System.currentTimeMillis()) {
-            currentAnimation = stand;
+        System.out.println("Health: " + health);
+        if(health < maxhealth) {
+            health+=REGEN;
         }
         if (gc.getInput().isKeyDown(Input.KEY_F)) {
             takeDamage(666);
+        }
+        if (health <= 0) {
+            currentAnimation = death;
+            return;
+        }
+        if (nextAction < System.currentTimeMillis()) {
+            currentAnimation = stand;
         }
 
         if (gc.getInput().isKeyDown(Input.KEY_A)) {
