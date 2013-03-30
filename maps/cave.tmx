@@ -5,11 +5,17 @@
  </tileset>
  <layer name="Tile Layer 1" width="40" height="40">
   <data encoding="base64" compression="zlib">
-   eJztzjESgCAUA9Hg/Q9tb6GgYPKZLbbdeU1S27SjoyRLb8m2mc5Vrq/Ov1xVfCNGh23Emexz256Mbtedz22q5Lsa3RZ8+BLDhw8fPnyZ4cOHDx++zKr43rbyPSN80gnyJwsy
+   eJzt2DEOwCAQA8GD/z86fYrACYh9aIttrandIqJdWp/IyTKbs22n85Rr1fmXq4ovY1TYMk5nn9o2MqpdXz61qZLvbVRb8OFzDB8+fPjweYYPn4PvxP+xur0jfPjw4avsewA4EQp4
   </data>
  </layer>
  <objectgroup name="Object Layer 1" width="40" height="40">
-  <object type="hero" x="575" y="1203" width="32" height="32"/>
-  <object type="monster" x="607" y="121" width="32" height="32"/>
+  <object type="hero" x="577" y="944" width="32" height="32"/>
+  <object type="boss" x="607" y="121" width="32" height="32"/>
+  <object type="monster" x="352" y="359" width="32" height="32"/>
+  <object type="monster" x="390" y="359" width="32" height="32"/>
+  <object type="monster" x="428" y="359" width="32" height="32"/>
+  <object type="monster" x="765" y="358" width="32" height="32"/>
+  <object type="monster" x="840" y="359" width="32" height="32"/>
+  <object type="monster" x="802" y="358" width="32" height="32"/>
  </objectgroup>
 </map>

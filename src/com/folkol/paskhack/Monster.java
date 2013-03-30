@@ -10,6 +10,9 @@ import org.newdawn.slick.Sound;
 import org.newdawn.slick.SpriteSheet;
 
 public class Monster extends Entity {
+    private static final int CLOSE_ENOUGH_TO_HOME = 5;
+    private static final int AGGRO_RANGE  = 250;
+    private static final int PREFERRED_FIGHTING_DISTANCE = 40;
     private Animation walk;
     private Animation stand;
     private Animation attack;
@@ -53,13 +56,13 @@ public class Monster extends Entity {
         float distance = distance(currentScene.hero);
         float homeDistance = (float) Math.sqrt(Math.pow(x - homeX, 2) + Math.pow(y - homeY, 2));
         dx = dy = 0;
-        if (distance > 40 && distance < 250 && homeDistance < 400 && currentScene.hero.isAlive()) {
+        if (distance > PREFERRED_FIGHTING_DISTANCE && distance < AGGRO_RANGE && currentScene.hero.isAlive()) {
             float signX = currentScene.hero.x - x;
             float signY = currentScene.hero.y - y;
             dx = Math.signum(signX) * maxspeed;
             dy = Math.signum(signY) * maxspeed;
             currentAnimation = walk;
-        } else if (homeDistance > 20) {
+        } else if (homeDistance > CLOSE_ENOUGH_TO_HOME) {
             float signX = homeX - x;
             float signY = homeY - y;
             dx = (float) (Math.signum(signX) * maxspeed * 0.5);
