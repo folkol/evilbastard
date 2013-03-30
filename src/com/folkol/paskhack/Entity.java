@@ -91,11 +91,19 @@ public class Entity {
                 || !isWalkable(attemptedX + width, attemptedY + height);
     }
 
+    public float distance(Entity e) {
+        return (float) Math.sqrt(Math.pow(x - e.x, 2) + Math.pow(y - e.y, 2));
+    }
+
     public void render(int screenPosX, int screenPosY) {
         currentAnimation.draw(x - screenPosX, y - screenPosY - height);
     }
 
-    public float distance(Entity e) {
-        return (float) Math.sqrt(Math.pow(x - e.x, 2) + Math.pow(y - e.y, 2));
+    public boolean isAlive() {
+        return health > 0;
+    }
+
+    public void takeDamage(int amount) {
+        health -= amount;
     }
 }

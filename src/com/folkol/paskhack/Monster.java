@@ -13,6 +13,7 @@ public class Monster extends Entity {
     private Animation attack;
     private Sound miss;
     private Sound hit;
+    private Sound death;
     private long nextAction;
     private Animation dead;
     public float homeX, homeY;
@@ -32,12 +33,13 @@ public class Monster extends Entity {
         maxspeed = 0.05f;
         miss = new Sound("/snd/attack_miss_0.wav");
         hit = new Sound("/snd/attack_hit_shield.wav");
+        death = new Sound("/snd/death.wav");
         currentAnimation = stand;
     }
 
     @Override
     public void update(GameContainer gc, int delta) {
-        if (health < 0) {
+        if (health <= 0) {
             currentAnimation = dead;
             return;
         }
@@ -49,7 +51,7 @@ public class Monster extends Entity {
         float homeDistance = (float) Math.sqrt(Math.pow(x - homeX, 2) + Math.pow(y - homeY, 2));
 
         dx = dy = 0;
-        if(distance > 50 && distance < 250 && homeDistance < 400) {
+        if(distance > 40 && distance < 250 && homeDistance < 400) {
             float signX = currentScene.hero.x - x;
             float signY = currentScene.hero.y - y;
             dx = Math.signum(signX) * maxspeed;
@@ -74,5 +76,13 @@ public class Monster extends Entity {
     public void setY(float y) {
         homeY = y;
         super.setY(y);
+    }
+
+    @Override
+    public void takeDamage(int amount) {
+        super.takeDamage(amount);
+        if(health <= 0) {
+            death.play();
+        }
     }
 }

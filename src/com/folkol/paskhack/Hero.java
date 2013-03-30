@@ -81,8 +81,8 @@ public class Hero extends Entity {
         nextAction = System.currentTimeMillis() + 200;
         boolean hitSomething = false;
         for (Entity e : currentScene.entities) {
-            if (!e.equals(this) && distance(e) < 50) {
-                e.health -= 10;
+            if (!e.equals(this) && e.isAlive() && distance(e) < 50) {
+                e.takeDamage(10);
                 hitSomething = true;
                 hit.play();
             }
