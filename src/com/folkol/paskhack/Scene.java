@@ -63,7 +63,7 @@ abstract public class Scene {
         int healthBarY = 50;
         int healthBarWidth = 500;
         int healthBarHeight = 20;
-        float heroHealthFactor = boss.health / 1000.0f;
+        float heroHealthFactor = boss.health / 250.0f;
         if(heroHealthFactor < 0) {
             heroHealthFactor = 0;
         }

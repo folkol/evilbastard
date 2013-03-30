@@ -24,7 +24,7 @@ public class Boss extends Entity {
 
     public Boss(Scene scene) throws SlickException {
         super(scene);
-        health = 1000.0f;
+        health = 250.0f;
         SpriteSheet hero = new SpriteSheet("/gfx/boss.png", 32, 64);
         stand = new Animation(hero, 0, 0, 0, 0, true, 250, true);
         walk = new Animation(hero, 1, 0, 2, 0, true, 100, true);
