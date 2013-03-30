@@ -54,7 +54,10 @@ public class Boss extends Entity {
         float distance = distance(currentScene.hero);
         float homeDistance = (float) Math.sqrt(Math.pow(x - homeX, 2) + Math.pow(y - homeY, 2));
         dx = dy = 0;
-        if (distance > 40 && currentScene.hero.isAlive()) {
+        if(distance < 300) {
+            didAggro = true;
+        }
+        if (didAggro && distance > 40 && currentScene.hero.isAlive()) {
             float signX = currentScene.hero.x - x;
             float signY = currentScene.hero.y - y;
             dx = Math.signum(signX) * maxspeed;

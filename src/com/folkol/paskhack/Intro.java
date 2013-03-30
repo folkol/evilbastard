@@ -39,6 +39,11 @@ public class Intro extends Scene {
                 hero.setX(objectX);
                 hero.setY(objectY);
                 entities.add(hero);
+            } else if ("tree".equals(objectType)) {
+                Tree tree = new Tree(this);
+                tree.setX(objectX);
+                tree.setY(objectY);
+                entities.add(tree);
             } else {
                 System.out.println("Unknown object type found");
             }

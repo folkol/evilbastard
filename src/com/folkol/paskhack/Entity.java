@@ -89,7 +89,7 @@ public class Entity {
     }
 
     public void render(int screenPosX, int screenPosY) {
-        currentAnimation.draw(x - screenPosX, y - screenPosY - height);
+        currentAnimation.draw(x - screenPosX - (width - 32), y - screenPosY - height);
     }
 
     public boolean isAlive() {
