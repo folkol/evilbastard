@@ -13,6 +13,7 @@ import org.newdawn.slick.tiled.TiledMap;
 
 public class Woods extends Scene {
     private Scene nextScene;
+    private long timeOfWin;
 
     public Woods() throws SlickException {
         map = new TiledMap("/maps/woods.tmx");
@@ -87,6 +88,7 @@ public class Woods extends Scene {
 
     public boolean checkWinConditions(GameContainer gc) {
         if (monstersAlive() == 0) {
+            timeOfWin = System.currentTimeMillis();
             hero.victory();
             return false;
         }
