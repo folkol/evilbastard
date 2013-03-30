@@ -19,7 +19,7 @@ public class Outro extends Scene {
     List<String> text = new ArrayList<String>();
 
     public Outro() throws SlickException {
-        music = new Music("/snd/woods.ogg");
+        music = new Music("/snd/outro.ogg");
         image = new Image("/gfx/outro.png");
         nextScene = this;
         text.add("Congratulations!");
@@ -86,7 +86,9 @@ public class Outro extends Scene {
 
     @Override
     public void update(GameContainer gc, int delta) {
-        y -= 0.05 * delta;
+        if(y > -700) {
+            y -= 0.05 * delta;
+        }
         if (gc.getInput().isKeyPressed(Input.KEY_ESCAPE)) {
             gc.exit();
         }
