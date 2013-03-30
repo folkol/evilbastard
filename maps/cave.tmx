@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="40" height="40" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="tiles" tilewidth="32" tileheight="32">
+  <image source="../gfx/tiles.png" width="320" height="320"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="40" height="40">
+  <data encoding="base64" compression="zlib">
+   eJztzjESgCAUA9Hg/Q9tb6GgYPKZLbbdeU1S27SjoyRLb8m2mc5Vrq/Ov1xVfCNGh23Emexz256Mbtedz22q5Lsa3RZ8+BLDhw8fPnyZ4cOHDx++zKr43rbyPSN80gnyJwsy
+  </data>
+ </layer>
+ <objectgroup name="Object Layer 1" width="40" height="40">
+  <object type="hero" x="575" y="1203" width="32" height="32"/>
+  <object type="monster" x="607" y="121" width="32" height="32"/>
+ </objectgroup>
+</map>

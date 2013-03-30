@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="100" height="100" tilewidth="32" tileheight="32">
+<map version="1.0" orientation="orthogonal" width="100" height="50" tilewidth="32" tileheight="32">
  <tileset firstgid="1" name="tiles" tilewidth="32" tileheight="32">
   <image source="../gfx/tiles.png" width="320" height="320"/>
   <tile id="0">
@@ -8,12 +8,12 @@
    </properties>
   </tile>
  </tileset>
- <layer name="Tile Layer 1" width="100" height="100">
+ <layer name="Tile Layer 1" width="100" height="50">
   <data encoding="base64" compression="zlib">
-   eJzt1jsOwjAUAEEn9z80DX1EELwFTzGlJdsrf4611gGwgfNpeh47Oy9Mz28HVw306HXQpNVAj8be69HuMb2mX/ap86FNv9P0mv6BJj2atLy733p8v82r4/Sa517r8NZ0ePs7/MVa9GjRo0ePHj2a9OjSoksHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAO54AACHKHA=
+   eJzt1DEOwjAUBNHA/Q9NQ7OFCYm/Nc7XjOSOIHlf4HUcx6vB6RK9ox4ZvaMe2ewO7+/Ro6YZg9HR435VBnrUVOlAmnSp0kCP+Sq216OuDhZ67GfTpdH9nmbTpbN7PsWkS//c9QkmXVrhcfa8HuOu3vvuO//r8xVeXVr1f77id6YHZ3HVpEs7W+ixl4UeetDpsVerPWZN9NjLRI+9XPTYx+bKd3WJ9BjZ3Hm+S7RD1ekSvaMeGb2jHhm9ox4ZvaMeGb2jHhm9ox4ZvaMeGb2jHhm9ox4ZvaMeGb2jHhm9ox4ZvaMeGb2jHhm9ox4ZvaMeGb2jHhm9ox4ZvaMeGb2jHhm9ox4ZvaMe2Qc+Jgsk
   </data>
  </layer>
- <objectgroup name="Object Layer 1" width="100" height="100">
+ <objectgroup name="Object Layer 1" width="100" height="50">
   <object type="monster" x="522" y="159" width="32" height="32"/>
   <object type="monster" x="874" y="642" width="32" height="32"/>
   <object type="monster" x="601" y="206" width="32" height="32"/>

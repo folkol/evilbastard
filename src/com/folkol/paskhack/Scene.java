@@ -14,6 +14,7 @@ abstract public class Scene {
     public List<Entity> entities = new ArrayList<Entity>();
     protected int screenPosX, screenPosY;
     protected boolean finished;
+    private Scene nextScene;
 
     abstract public void update(GameContainer gc, int delta);
 
@@ -28,15 +29,19 @@ abstract public class Scene {
         return finished;
     }
 
-    public Scene getNext() {
-        return this;
-    }
-
     public void reset() throws SlickException {
 
     }
 
-    public boolean checkConditions(GameContainer gc) {
+    public boolean checkWinConditions(GameContainer gc) {
         return true;
+    }
+
+    public Scene getNextScene() {
+        return nextScene;
+    }
+
+    public void setNextScene(Scene nextScene) {
+        this.nextScene = nextScene;
     }
 }

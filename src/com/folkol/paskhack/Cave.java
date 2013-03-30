@@ -11,12 +11,12 @@ import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
-public class Woods extends Scene {
+public class Cave extends Scene {
     private Music music;
     private Scene nextScene;
 
-    public Woods() throws SlickException {
-        map = new TiledMap("/maps/woods.tmx");
+    public Cave() throws SlickException {
+        map = new TiledMap("/maps/cave.tmx");
         music = new Music("/snd/woods.ogg");
         nextScene = this;
         reset();
@@ -30,7 +30,7 @@ public class Woods extends Scene {
             int objectX = map.getObjectX(0, i);
             int objectY = map.getObjectY(0, i);
             if ("monster".equals(objectType)) {
-                Monster monster = new Monster(this);
+                Boss monster = new Boss(this);
                 monster.setX(objectX);
                 monster.setY(objectY);
                 entities.add(monster);

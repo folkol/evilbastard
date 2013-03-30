@@ -4,11 +4,14 @@ import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 public class Game extends BasicGame {
     private Scene woods;
     private Scene currentScene;
+    private Cave cave;
+    private GameWon gameWon;
 
     public Game() {
         super("Hello World");
@@ -17,17 +20,32 @@ public class Game extends BasicGame {
     @Override
     public void init(GameContainer gc) throws SlickException {
         woods = new Woods();
+        cave = new Cave();
+        gameWon = new GameWon();
+        woods.setNextScene(cave);
+        cave.setNextScene(gameWon);
         currentScene = woods;
     }
 
     @Override
     public void update(GameContainer gc, int delta) throws SlickException {
-        if(currentScene.finished()) {
-            Scene nextScene = currentScene.getNext();
-            nextScene.reset();
-            currentScene = nextScene;
+        if(gc.getInput().isKeyPressed(Input.KEY_C)) {
+            nextScene();
+        }
+        if (currentScene.finished()) {
+            if (!currentScene.checkWinConditions(gc)) {
+                nextScene();
+            } else {
+                currentScene.reset();
+            }
         }
         currentScene.update(gc, delta);
+    }
+
+    private void nextScene() throws SlickException {
+        Scene nextScene = currentScene.getNextScene();
+        nextScene.reset();
+        currentScene = nextScene;
     }
 
     @Override
